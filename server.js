@@ -8,6 +8,10 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 
+app.get('/', (req, res) => {
+  res.send('Proxy de CUITonline funcionando. Usa la ruta /consultar/:cuit para consultas.');
+});
+
 app.get('/consultar/:cuit', async (req, res) => {
   const cuit = req.params.cuit;
   const url = `https://www.cuitonline.com.ar/verifica-cuit.php?cuit=${cuit}`;
@@ -23,7 +27,7 @@ app.get('/consultar/:cuit', async (req, res) => {
     const dom = new JSDOM(text);
     const document = dom.window.document;
 
-    // Ajusta estos selectores inspeccionando cuitonline real
+    // Ajusta selectores si es necesario
     const razonSocialElem = document.querySelector('.razon-social');
     const domicilioElem = document.querySelector('.domicilio');
     const estadoElem = document.querySelector('.estado');
