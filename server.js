@@ -17,7 +17,13 @@ app.get('/consultar/:cuit', async (req, res) => {
   const url = `https://www.cuitonline.com.ar/verifica-cuit.php?cuit=${cuit}`;
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36',
+        'Accept-Language': 'es-AR,es;q=0.9',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+      }
+    });
     if (!response.ok) {
       return res.status(500).json({ error: 'Error al consultar cuitonline' });
     }
